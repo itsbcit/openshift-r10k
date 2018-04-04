@@ -4,6 +4,8 @@ ENV TINI_SUBREAPER ""
 ENV RUNUSER r10k
 ENV HOME /var/lib/r10k/cache
 
+COPY 70-sshconfig.sh /docker-entrypoint.d/
+
 RUN mkdir -p  /etc/puppetlabs/code /var/lib/r10k /var/lib/r10k/cache \
  && chown 0:0 /etc/puppetlabs/code /var/lib/r10k /var/lib/r10k/cache \
  && chmod 775 /etc/puppetlabs/code /var/lib/r10k /var/lib/r10k/cache
