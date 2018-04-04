@@ -1,14 +1,14 @@
 FROM bcit/alpine
 
+ENV TINI_SUBREAPER ""
 ENV RUNUSER r10k
-ENV HOME /home/r10k
+ENV HOME /
 
-COPY 50-home.sh /docker-entrypoint.d/
-
-RUN mkdir -p /etc/puppetlabs/code \
- && chown 0:0 /etc/puppetlabs/code \
- && chmod 775 /etc/puppetlabs/code
+RUN mkdir -p  /etc/puppetlabs/code /var/lib/r10k /var/lib/r10k/cache \
+ && chown 0:0 /etc/puppetlabs/code /var/lib/r10k /var/lib/r10k/cache \
+ && chmod 775 /etc/puppetlabs/code /var/lib/r10k /var/lib/r10k/cache
 VOLUME /etc/puppetlabs/code
+VOLUME /var/lib/r10k/cache
 
 RUN apk add --no-cache \
         git \
