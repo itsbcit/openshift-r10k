@@ -12,6 +12,7 @@ VOLUME /var/lib/r10k/cache
 
 RUN apk add --no-cache \
         git \
+        openssh-client \
         ruby-json \
         ruby
 
