@@ -1,0 +1,1 @@
+[ -d $HOME ] || mkdir $HOME
