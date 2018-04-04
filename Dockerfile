@@ -12,6 +12,7 @@ VOLUME /etc/puppetlabs/code
 
 RUN apk add --no-cache \
         git \
+        ruby-json \
         ruby
 
 RUN gem install --no-ri --no-rdoc \
