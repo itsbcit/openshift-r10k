@@ -23,4 +23,4 @@ RUN gem install --no-ri --no-rdoc \
 
 RUN chown 0:0 /home && chmod 1777 /home
 
-CMD [ "tail", "-f", "/dev/null" ]
+CMD [ "/usr/bin/r10k", "deploy", "environment", "-p", "-v" ]
