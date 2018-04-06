@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: r10k-deploy
+spec:
+  parallelism: 1    
+  completions: 1    
+  template:         
+    metadata:
+      name: r10k-deploy
+    spec:
+      containers:
+        - name: r10k
+          image: docker-registry.default.svc:5000/puppet/r10k:latest
+          volumeMounts:
+            - mountPath: /var/lib/r10k/auth
+              name: r10k-auth
+            - mountPath: /etc/puppetlabs/r10k
+              name: r10k-config
+            - mountPath: /etc/puppetlabs/code
+              name: puppetserver-code
+            - mountPath: /var/lib/r10k/cache
+              name: r10k-cache
+      restartPolicy: Never
+      volumes:
+        - name: r10k-auth
+          secret:
+            defaultMode: 420
+            secretName: r10k-private
+        - name: r10k-config
+          configMap:
+            defaultMode: 420
+            name: r10k
+        - name: puppetserver-code
+          persistentVolumeClaim:
+            claimName: puppetserver-code
+        - name: r10k-cache
+          persistentVolumeClaim:
+            claimName: r10k-cache
